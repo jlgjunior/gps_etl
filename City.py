@@ -5,7 +5,7 @@ class City(db.Model):
   __tablename__ = 'Cities'
 
   id = db.Column(db.Integer, primary_key=True)
-  name = db.Column(db.String(), nullable=False)
+  name = db.Column(db.String(), nullable=False, unique=True)
   state_id = db.Column(db.Integer, db.ForeignKey('States.id'), nullable=False)
 
   state = db.relationship('State')

@@ -4,14 +4,15 @@ import City
 class Location(db.Model):
 
   __tablename__ = 'Locations'
+  __table_args__ = (UniqueConstraint('latitude', 'longitude', name='_latitude_longitude_uc'))
 
   id = db.Column(db.Integer, primary_key=True)
   latitude = db.Column(db.Real, nullable=False)
   longitude = db.Column(db.Real, nullable=False)
-  address = db.Column(db.String())
+  address = db.Column(db.String(), nullable=False)
   number = db.Column(Integer)
-  district = db.Column(db.String())
-  zipcode = db.Column(db.String())
+  district = db.Column(db.String(), nullable=False)
+  zipcode = db.Column(db.String(), nullable=False)
 
   city = relationship('City')
 

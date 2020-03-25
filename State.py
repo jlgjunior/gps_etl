@@ -5,7 +5,7 @@ class State(db.Model):
   __tablename__ = 'States'
 
   id = db.Column(db.Integer, primary_key = True)
-  name = db.Column(db.String())
+  name = db.Column(db.String(), nullable=False, unique=True)
   abbreviation = db.Column(db.String(2))
   country_id = db.Column(db.Integer, db.ForeignKey('Countries.id'), nullable=False)
 
