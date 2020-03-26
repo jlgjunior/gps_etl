@@ -10,9 +10,8 @@ class City(db.Model):
 
   state = db.relationship('State')
 
-  def __init__(self, name, state_id):
+  def __init__(self, name):
     self.name = name
-    self.state_id = state_id
 
   def __repr__(self):
     return self.name

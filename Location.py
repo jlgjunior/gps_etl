@@ -1,5 +1,4 @@
 from app import db
-import googlemaps
 import City
 
 class Location(db.Model):
@@ -11,24 +10,16 @@ class Location(db.Model):
   latitude = db.Column(db.Float, nullable=False)
   longitude = db.Column(db.Float, nullable=False)
   address = db.Column(db.String(), nullable=False)
-  number = db.Column(db.Integer)
+  number = db.Column(db.String())
   district = db.Column(db.String(), nullable=False)
   zipcode = db.Column(db.String(), nullable=False)
-  city_id = db.Column(db.Integer, db.ForeignKey('Cities.id'), nullable=False)
-   
+  city_id = db.Column(db.Integer, db.ForeignKey('Cities.id'), nullable=True)
+  state_id = db.Column(db.Integer, db.ForeignKey('States.id'), nullable=False) 
 
   city = db.relationship('City')
+  state = db.relationship('State')
 
-  def __init__(self, latitude, longitude):#, address, number, district, zipcode):
-    self._gmaps = googlemaps.Client(key='AIzaSyD824zYRjcgNrFW0XO5TzwCUkKDfWmAneo')
-   
+  def __init__(self, latitude, longitude):
+  
     self.latitude = latitude
     self.longitude = longitude
-    #self.address = address
-    #self.number = number
-    #self.district = district
-    #self.zipcode = zipcode
-
-  def getLocationData(self):
-    data = self._gmaps.reverse_geocode((self.latitude, self.longitude))
-    print(data)
