@@ -13,9 +13,9 @@ class DataReader():
       for line in file: 
         value = line.strip().split(' ')[4]
         if line.startswith('La'):
-          coordinate = [float(value)]
+          coordinate = (float(value), 0)
         elif line.startswith('Lo'):
-          coordinate.append(float(value))
+          coordinate = (coordinate[0], float(value))
           coordinates.append(coordinate)
     return coordinates
       
