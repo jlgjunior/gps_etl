@@ -1,6 +1,7 @@
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 from os import listdir
+from app import db
 import os
 from DataReader import DataReader
 from DataProcessor import DataProcessor
@@ -14,7 +15,15 @@ def main():
   data = reader.readCoordinates()
   
   processor = DataProcessor(data)
-  processor.processDataPoints()
+  models = processor.processDataPoints()
+  for model in models:
+    try:
+      db.session.add(model)
+      db.session.commit()
+    except Exception as e:
+      db.session.rollback()
+      print(e)
+
 
 if __name__ == "__main__":
   main() 
