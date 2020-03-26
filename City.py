@@ -2,7 +2,7 @@ from app import db
 import State
 
 class City(db.Model):
-  __tablename__ = 'Cities'
+  __tablename__ = 'city'
 
   id = db.Column(db.Integer, primary_key=True)
   name = db.Column(db.String(), nullable=False, unique=True)

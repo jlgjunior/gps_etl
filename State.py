@@ -2,7 +2,7 @@ from app import db
 import Country
 
 class State(db.Model):
-  __tablename__ = 'States'
+  __tablename__ = 'state'
 
   id = db.Column(db.Integer, primary_key = True)
   name = db.Column(db.String(), nullable=False, unique=True)

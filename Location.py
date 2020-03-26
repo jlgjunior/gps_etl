@@ -3,7 +3,7 @@ import City
 
 class Location(db.Model):
 
-  __tablename__ = 'Locations'
+  __tablename__ = 'location'
   __table_args__ = (db.UniqueConstraint('latitude', 'longitude', name='_latitude_longitude_uc'), {})
 
   id = db.Column(db.Integer, primary_key=True)
