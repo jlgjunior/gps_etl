@@ -8,6 +8,7 @@ class Config(object):
   CSRF_ENABLED = True
   SECRET_KEY = 'application'
   SQLALCHEMY_DATABASE_URI = 'postgresql:///gps_etl_dev'
+  print(SQLALCHEMY_DATABASE_URI)
 
 class ProductionConfig(Config):
   DEBUG = False
