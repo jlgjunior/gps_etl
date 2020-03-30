@@ -5,6 +5,7 @@ from app import db
 import os
 from DataReader import DataReader
 from DataProcessor import DataProcessor
+from Location import Location
 
 def main():
   reader = DataReader('dataSrc')
@@ -25,6 +26,7 @@ def main():
   except Exception as e:
     print(e)
 
+  print(Location.listAll())
 
 if __name__ == "__main__":
   main() 

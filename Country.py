@@ -23,3 +23,6 @@ class Country(GenericModel):
     else:
       self.id = model.id
       return True
+
+  def __repr__(self):
+    return self.name

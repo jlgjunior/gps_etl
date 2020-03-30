@@ -32,3 +32,18 @@ class Location(GenericModel):
     else:
       self.id = model.id
       return True
+
+  @classmethod
+  def listAll(cls):
+    result = ''
+    for location in db.session.query(Location).all():
+      result = result + str(location) + '\n'
+    return result
+
+  def __repr__(self):
+    properties = [self.latitude, self.longitude, self.address, self.number, self.district, self.city, self.zipcode, self.state, self.state.country]
+    strItems = ''
+    for property in properties:
+      if not property is None:
+        strItems = strItems + str(property) + ' '
+    return strItems.strip()
