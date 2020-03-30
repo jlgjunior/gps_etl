@@ -5,7 +5,6 @@ from app import app, db
 import config
 import Country
 import State
-import City
 import Location
 
 target_metadata = [db.Model.metadata]
