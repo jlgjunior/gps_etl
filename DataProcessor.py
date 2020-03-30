@@ -2,7 +2,6 @@ import googlemaps
 import multiprocessing as mp
 from Location import Location
 from State import State
-from City import City
 from Country import Country
 
 class DataProcessor:
@@ -23,29 +22,24 @@ class DataProcessor:
     location = Location(latitude, longitude)
     try:
       data = self._gmaps.reverse_geocode((location.latitude, location.longitude))
-      city = None
       for addressItem in data[0]['address_components']:
         if 'street_number' in addressItem['types']:
           location.number = addressItem['long_name']
         elif 'sublocality_level_1' in addressItem['types']:
           location.district = addressItem['long_name']
         elif 'administrative_area_level_2' in addressItem['types']:
-          city = City(addressItem['long_name'])
+          location.city = addressItem['long_name']
         elif 'country' in addressItem['types']:
           country = Country(addressItem['long_name'])
         elif 'administrative_area_level_1' in addressItem['types']:
           state = State(addressItem['long_name'], addressItem['short_name'])
         elif 'postal_code' in addressItem['types']:
-          location.postalcode = addressItem['long_name']
+          location.zipcode = addressItem['long_name']
         elif 'route' in addressItem['types']:
           location.address = addressItem['long_name']
       state.country = country
-      if not city is None:
-        city.state = state
-        location.city = city
       location.state = state
-      return [country, state, city, location]
+      return location
     except Exception as e:
-      print(data)
       print(e)
       return []

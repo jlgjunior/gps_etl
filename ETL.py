@@ -7,22 +7,23 @@ from DataReader import DataReader
 from DataProcessor import DataProcessor
 
 def main():
-  engine = create_engine("postgresql://application:application@localhost/gps_etl_dev")
-  session = sessionmaker(bind=engine)
-
   reader = DataReader('dataSrc')
 
   data = reader.readCoordinates()
   
   processor = DataProcessor(data)
-  models = processor.processDataPoints()
-  for model in models:
-    try:
-      db.session.add(model)
-      db.session.commit()
-    except Exception as e:
-      db.session.rollback()
-      print(e)
+  locations = processor.processDataPoints()
+  try:
+    for location in locations:
+      location.state.country.addNew()
+      location.state.country_id = location.state.country.id
+      #location.state.country = None
+      location.state.addNew()
+      location.state_id = location.state.id
+      #location.state = None
+      location.addNew()
+  except Exception as e:
+    print(e)
 
 
 if __name__ == "__main__":
